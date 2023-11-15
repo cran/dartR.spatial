@@ -2,8 +2,8 @@ Package: dartR.spatial
 Type: Package
 Title: Applying Landscape Genomic Methods on 'SNP' and 'Silicodart'
         Data
-Version: 0.76
-Date: 2023-08-17
+Version: 0.78
+Date: 2023-11-15
 Authors@R: c(
             person("Bernd", "Gruber", email="bernd.gruber@canberra.edu.au", role=c("aut","cre")), 
             person("Arthur", "Georges", email="georges@aerg.edu.au", role="aut"),
@@ -27,7 +27,7 @@ Suggests: mmod, dismo, gdistance, gplots, rrBLUP, terra (>= 1.7-39),
 License: GPL (>= 3)
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-08-17 03:48:03 UTC; s425824
+Packaged: 2023-11-14 23:22:35 UTC; s425824
 Author: Bernd Gruber [aut, cre],
   Arthur Georges [aut],
   Jose L. Mijangos [aut],
@@ -38,4 +38,4 @@ URL: https://green-striped-gecko.github.io/dartR/
 BugReports: https://groups.google.com/g/dartr?pli=1
 Maintainer: Bernd Gruber <bernd.gruber@canberra.edu.au>
 Repository: CRAN
-Date/Publication: 2023-08-17 14:52:35 UTC
+Date/Publication: 2023-11-15 00:50:02 UTC
