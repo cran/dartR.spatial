@@ -5,7 +5,7 @@
 \title{Spatial autocorrelation following Smouse and Peakall 1999}
 \usage{
 gl.spatial.autoCorr(
-  x = NULL,
+  x,
   Dgeo = NULL,
   Dgen = NULL,
   coordinates = "latlon",
@@ -27,7 +27,7 @@ gl.spatial.autoCorr(
 )
 }
 \arguments{
-\item{x}{Genlight object [default NULL].}
+\item{x}{Name of the genlight object containing the SNP data [required].}
 
 \item{Dgeo}{Geographic distance matrix if no genlight object is provided.
 This is typically an Euclidean distance but it can be any meaningful 
@@ -109,6 +109,8 @@ spatial autocorrelation (if \code{permutation = TRUE})
 spatial autocorrelation (if \code{permutation = TRUE})
 \item p.one.tail The p value of the one tail statistical test
 }
+ Plots and table are saved plot.file in plot.dir if specified.
+ Bootstraps and permutations (if requested) are saved in a temporary directory
 }
 \description{
 Global spatial autocorrelation is a multivariate approach
@@ -172,22 +174,21 @@ of possible combinations given the sample size of any given distance class is
 
 Methods available to calculate genetic distances for SNP data:
 \itemize{
-\item "propShared" using the function \code{\link{gl.propShared}}.
+\item "propShared" using the function \code{\link[dartR.base]{gl.propShared}}.
 \item "grm" using the function \code{gl.grm2}.
-\item "Euclidean" using the function \code{\link{gl.dist.ind}}.
-\item "Simple" using the function \code{\link{gl.dist.ind}}.
-\item "Absolute" using the function \code{\link{gl.dist.ind}}.
-\item "Manhattan" using the function \code{\link{gl.dist.ind}}.
+\item "Euclidean" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Simple" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Absolute" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Manhattan" using the function \code{\link[dartR.base]{gl.dist.ind}}.
 }
 
 Methods available to calculate genetic distances for SilicoDArT data:
 \itemize{
-\item "Euclidean" using the function \code{\link{gl.dist.ind}}.
-\item "Simple" using the function \code{\link{gl.dist.ind}}.
-\item "Jaccard" using the function \code{\link{gl.dist.ind}}.
-\item "Bray-Curtis" using the function \code{\link{gl.dist.ind}}.
+\item "Euclidean" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Simple" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Jaccard" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+\item "Bray-Curtis" using the function \code{\link[dartR.base]{gl.dist.ind}}.
 }
- Plots and table are saved plot.file in plot.dir if specified.
 
 Examples of other themes that can be used can be consulted in \itemize{
  \item \url{https://ggplot2.tidyverse.org/reference/ggtheme.html} and \item

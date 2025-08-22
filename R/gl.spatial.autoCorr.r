@@ -61,29 +61,28 @@
 #' 
 #' Methods available to calculate genetic distances for SNP data:
 #' \itemize{
-#' \item "propShared" using the function \code{\link{gl.propShared}}.
+#' \item "propShared" using the function \code{\link[dartR.base]{gl.propShared}}.
 #' \item "grm" using the function \code{gl.grm2}.
-#' \item "Euclidean" using the function \code{\link{gl.dist.ind}}.
-#' \item "Simple" using the function \code{\link{gl.dist.ind}}.
-#' \item "Absolute" using the function \code{\link{gl.dist.ind}}.
-#' \item "Manhattan" using the function \code{\link{gl.dist.ind}}.
+#' \item "Euclidean" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Simple" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Absolute" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Manhattan" using the function \code{\link[dartR.base]{gl.dist.ind}}.
 #' }
 #' 
 #' Methods available to calculate genetic distances for SilicoDArT data:
 #' \itemize{
-#' \item "Euclidean" using the function \code{\link{gl.dist.ind}}.
-#' \item "Simple" using the function \code{\link{gl.dist.ind}}.
-#' \item "Jaccard" using the function \code{\link{gl.dist.ind}}.
-#' \item "Bray-Curtis" using the function \code{\link{gl.dist.ind}}.
+#' \item "Euclidean" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Simple" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Jaccard" using the function \code{\link[dartR.base]{gl.dist.ind}}.
+#' \item "Bray-Curtis" using the function \code{\link[dartR.base]{gl.dist.ind}}.
 #' }
-#'  Plots and table are saved plot.file in plot.dir if specified.
 #'
 #' Examples of other themes that can be used can be consulted in \itemize{
 #'  \item \url{https://ggplot2.tidyverse.org/reference/ggtheme.html} and \item
 #'  \url{https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/}
 #'  }
 #'  
-#' @param x Genlight object [default NULL].
+#' @param x Name of the genlight object containing the SNP data [required].
 #' @param Dgen Genetic distance matrix if no genlight object is provided
 #' [default NULL].
 #' @param Dgeo Geographic distance matrix if no genlight object is provided.
@@ -149,6 +148,8 @@
 #' spatial autocorrelation (if \code{permutation = TRUE})
 #' \item p.one.tail The p value of the one tail statistical test
 #' }
+#'  Plots and table are saved plot.file in plot.dir if specified.
+#'  Bootstraps and permutations (if requested) are saved in a temporary directory 
 #'
 #' @author Carlo Pacioni, Bernd Gruber & Luis Mijangos 
 #' (Post to \url{https://groups.google.com/d/forum/dartr})
@@ -185,7 +186,7 @@
 #' @importFrom tidyr pivot_wider
 #' @export
 
-gl.spatial.autoCorr <- function(x = NULL,
+gl.spatial.autoCorr <- function(x,
                                 Dgeo = NULL,
                                 Dgen = NULL,
                                 coordinates = "latlon", 
@@ -512,6 +513,11 @@ gl.spatial.autoCorr <- function(x = NULL,
         ncol = nbins,
         byrow = TRUE
       )
+      
+      # Save permutations
+      temp_perm <- tempfile(pattern = paste0("Perm_Pop", z))
+      saveRDS(bs, file = temp_perm)
+      
       bs.l <- apply(bs, 2, quantile, probs = 0.025, na.rm = TRUE)
       bs.u <- apply(bs, 2, quantile, probs = 0.975, na.rm = TRUE)
       
@@ -545,6 +551,10 @@ gl.spatial.autoCorr <- function(x = NULL,
                nrow = reps,
                ncol = nbins,
                byrow = TRUE)
+      # save Boots
+      temp_boots <- tempfile(pattern = paste0("Boots_Pop", z))
+      saveRDS(errors, file = temp_boots)
+      
       err.l <- apply(errors, 2, quantile, probs = 0.025, na.rm = TRUE)
       err.u <- apply(errors, 2, quantile, probs = 0.975, na.rm = TRUE)
     }
